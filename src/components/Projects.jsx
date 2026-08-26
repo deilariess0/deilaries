@@ -9,7 +9,7 @@ const projectData = [
     type: "Web Application",
     desc: "A web-based platform for booking cleaning services with an admin dashboard, scheduling, and booking management.",
     tech: ["HTML", "CSS", "JavaScript"],
-    img: "clean-genie.png",
+    img: "cleanGenieImg",
     link: "https://deilariess0.github.io/Clean-Genie/"
   },
   {
@@ -17,7 +17,7 @@ const projectData = [
     type: "Web Application",
     desc: "Admin panel for managing users, bookings, and services, with real-time analytics and responsive design.",
     tech: ["React", "Tailwind CSS", "Chart.js"],
-    img: "dashboard.png",
+    img: "dashboardImg",
     link: "https://booking-service-management-dashboar.vercel.app/login"
   },
   {
@@ -25,7 +25,7 @@ const projectData = [
     type: "Website",
     desc: "A responsive website designed for Vila Magenta Resort and Events Place, showcasing its private resort facilities, accommodations, and event venue",
     tech: ["HTML", "CSS", "JavaScript"],
-    img: "vilamagenta.JPG",
+    img: "vilamagentaImg",
     link: "https://deilariess0.github.io/Vila-Magenta-Website/"
   }
 ];
