@@ -60,7 +60,7 @@ const Hero = () => {
                 <a href="https://drive.google.com/file/d/1ID6rRej1IEJVNs0oATbv4YS9s7nVf9AJ/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap w-full sm:w-auto">
                   <i className="fas fa-file-alt"></i> RESUME
                 </a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=deilariess0@gmail.com" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap w-full sm:w-auto">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=deilariess0@gmail.com" target="_blank" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap w-full sm:w-auto">
                   <i className="fas fa-envelope"></i> CONTACT ME
                 </a>
               </div>
