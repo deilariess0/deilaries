@@ -25,7 +25,7 @@ const projectData = [
     type: "Website",
     desc: "A responsive website designed for Vila Magenta Resort and Events Place, showcasing its private resort facilities, accommodations, and event venue",
     tech: ["HTML", "CSS", "JavaScript"],
-    img: "vilamagentaImg",
+    img: vilamagentaImg,
     link: "https://deilariess0.github.io/Vila-Magenta-Website/"
   }
 ];
