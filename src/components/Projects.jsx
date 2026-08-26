@@ -1,4 +1,7 @@
 import React from 'react';
+import cleanGenieImg from '../assets/clean-genie.png';
+import dashboardImg from '../assets/dashboard.png';
+import vilamagentaImg from '../assets/vilamagenta.jpg';
 
 const projectData = [
   {
@@ -6,7 +9,7 @@ const projectData = [
     type: "Web Application",
     desc: "A web-based platform for booking cleaning services with an admin dashboard, scheduling, and booking management.",
     tech: ["HTML", "CSS", "JavaScript"],
-    img: "/src/assets/clean-genie.png",
+    img: "/clean-genie.png",
     link: "https://deilariess0.github.io/Clean-Genie/"
   },
   {
@@ -14,7 +17,7 @@ const projectData = [
     type: "Web Application",
     desc: "Admin panel for managing users, bookings, and services, with real-time analytics and responsive design.",
     tech: ["React", "Tailwind CSS", "Chart.js"],
-    img: "/src/assets/dashboard.png",
+    img: "/dashboard.png",
     link: "https://booking-service-management-dashboar.vercel.app/login"
   },
   {
@@ -22,7 +25,7 @@ const projectData = [
     type: "Website",
     desc: "A responsive website designed for Vila Magenta Resort and Events Place, showcasing its private resort facilities, accommodations, and event venue",
     tech: ["HTML", "CSS", "JavaScript"],
-    img: "/src/assets/vilamagenta.JPG",
+    img: "/vilamagenta.JPG",
     link: "https://deilariess0.github.io/Vila-Magenta-Website/"
   }
 ];
