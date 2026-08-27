@@ -1,7 +1,7 @@
 import React from 'react';
 import cleanGenieImg from '../assets/clean-genie.png';
 import dashboardImg from '../assets/dashboard.png';
-import vilamagentaImg from '../assets/vilamagenta.jpg';
+import vilamagentaImg from '../assets/vilamagenta.png';
 
 const projectData = [
   {
@@ -24,9 +24,9 @@ const projectData = [
     title: "Vila Magenta - Private Resort & Events Place",
     type: "Website",
     desc: "A responsive website designed for Vila Magenta Resort and Events Place, showcasing its private resort facilities, accommodations, and event venue",
-    tech: ["HTML", "CSS", "JavaScript"],
+    tech: ["React", "Tailwind CSS"],
     img: vilamagentaImg,
-    link: "https://deilariess0.github.io/Vila-Magenta-Website/"
+    link: "https://vila-magenta-website.vercel.app/"
   }
 ];
 
