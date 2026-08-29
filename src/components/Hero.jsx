@@ -25,7 +25,7 @@ const Hero = () => {
               {/* Dark Name Plate */}
               <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-xs bg-dark text-white p-6 rounded-3xl shadow-2xl z-20 text-center">
                 <h2 className="text-xl font-bold tracking-widest">DEIL ARIES SANTOS</h2>
-                <p className="text-blue-400 text-sm mt-1">Computer Science</p>
+                <p className="text-blue-400 text-sm mt-1">Full Stack Developer</p>
                 <div className="flex justify-center gap-6 mt-4 text-lg">
                    <a href="https://www.linkedin.com/in/deilariessantos/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition"><i className="fab fa-linkedin"></i></a>
                    <a href="https://github.com/deilariess0" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition"><i className="fab fa-github"></i></a>
