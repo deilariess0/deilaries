@@ -1,5 +1,5 @@
 import React from 'react';
-import myPhoto from '../assets/profile.JPG'; // CHANGE THIS if your photo has a different name/case!
+import myPhoto from '../assets/image2.png'; // CHANGE THIS if your photo has a different name/case!
 
 const Hero = () => {
   return (
@@ -14,7 +14,7 @@ const Hero = () => {
             {/* LEFT SIDE: Image */}
             <div className="w-full md:w-2/5 relative flex justify-center items-center">
               <div className="absolute inset-0 bg-blue-100 rounded-full blur-2xl opacity-60 transform scale-110"></div>
-              <div className="relative bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-full z-10">
+              <div className="relative bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-full z-10">
                 <img 
                   src={myPhoto} 
                   alt="Profile" 
@@ -25,7 +25,7 @@ const Hero = () => {
               {/* Dark Name Plate */}
               <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-xs bg-dark text-white p-6 rounded-3xl shadow-2xl z-20 text-center">
                 <h2 className="text-xl font-bold tracking-widest">DEIL ARIES SANTOS</h2>
-                <p className="text-blue-400 text-sm mt-1">Computer Science</p>
+                <p className="text-blue-400 text-sm mt-1">Full Stack Developer</p>
                 <div className="flex justify-center gap-6 mt-4 text-lg">
                    <a href="https://www.linkedin.com/in/deilariessantos/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition"><i className="fab fa-linkedin"></i></a>
                    <a href="https://github.com/deilariess0" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition"><i className="fab fa-github"></i></a>
@@ -60,7 +60,7 @@ const Hero = () => {
                 <a href="https://drive.google.com/file/d/1ID6rRej1IEJVNs0oATbv4YS9s7nVf9AJ/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap w-full sm:w-auto">
                   <i className="fas fa-file-alt"></i> RESUME
                 </a>
-                <a href="#contact" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap w-full sm:w-auto">
+                <a href="https://linktr.ee/deilaries" target="_blank" rel="noopener" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap w-full sm:w-auto">
                   <i className="fas fa-envelope"></i> CONTACT ME
                 </a>
               </div>

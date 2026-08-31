@@ -1,62 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  // State to track the active section
-  const [activeSection, setActiveSection] = useState('home');
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'projects', 'skills', 'contact'];
+  // Function to handle navigating to sections, or going home first
+  const handleSectionClick = (e, sectionId) => {
+    // If we are NOT on the home page
+    if (location.pathname !== '/') {
+      e.preventDefault(); // Stop the default jump
+      navigate('/'); // Go back to home page
       
-      for (const section of sections) {
-        const element = document.getElementById(section);
+      // Wait for the page to load, then scroll to the section
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
         if (element) {
-          const rect = element.getBoundingClientRect();
-          // If the section is within the top half of the viewport
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            setActiveSection(section);
-            break;
-          }
+          element.scrollIntoView({ behavior: 'smooth' });
         }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      }, 100); // 100ms delay to let React render the home page
+      return; 
+    }
+    
+    // If we ARE on the home page, just smooth scroll
+    e.preventDefault();
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50 px-6 py-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3">
           <span className="font-bold text-xl text-slate-800 tracking-tight">Deil Aries Santos</span>
-        </div>
+        </Link>
 
-        {/* Links - Dynamically colored based on activeSection */}
+        {/* Links - No more active state, just hover color */}
         <div className="hidden md:flex items-center gap-8 text-slate-600 font-medium text-[15px]">
-          <a 
-            href="#home" 
-            className={`transition ${activeSection === 'home' ? 'text-blue-600 font-semibold' : 'hover:text-blue-600'}`}
+          <Link 
+            to="/"
+            onClick={(e) => handleSectionClick(e, 'home')}
+            className="transition hover:text-blue-600"
           >
             Home
-          </a>
+          </Link>
+          
           <a 
-            href="#projects" 
-            className={`transition ${activeSection === 'projects' ? 'text-blue-600 font-semibold' : 'hover:text-blue-600'}`}
+            href="#projects"
+            onClick={(e) => handleSectionClick(e, 'projects')}
+            className="transition hover:text-blue-600"
           >
             Project
           </a>
+          
           <a 
-            href="#skills" 
-            className={`transition ${activeSection === 'skills' ? 'text-blue-600 font-semibold' : 'hover:text-blue-600'}`}
+            href="#skills"
+            onClick={(e) => handleSectionClick(e, 'skills')}
+            className="transition hover:text-blue-600"
           >
             Skill
           </a>
           <a 
-            href="#contact" 
-            className={`transition ${activeSection === 'contact' ? 'text-blue-600 font-semibold' : 'hover:text-blue-600'}`}
+            href="#contact"
+            onClick={(e) => handleSectionClick(e, 'contact')}
+            className="transition hover:text-blue-600"
           >
             Contact Me
           </a>
