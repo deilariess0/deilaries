@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-// CHANGE: Import BrowserRouter instead of HashRouter
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
-// Imports
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
@@ -10,18 +8,14 @@ import AllProjects from './components/AllProjects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 
-// 1. Create the ScrollToTop component
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-
   useEffect(() => {
-    window.scrollTo(0, 0); // Forces the window to scroll to the top
-  }, [pathname]); // Runs every time the route changes
-
+    window.scrollTo(0, 0); 
+  }, [pathname]);
   return null;
 };
 
-// Home page component (holds Hero + Projects)
 const Home = () => {
   return (
     <>
@@ -36,14 +30,12 @@ const Home = () => {
 function App() {
   return (
     <Router>
-      {/* 2. Add the ScrollToTop component right here */}
       <ScrollToTop />
       
       <div className="font-sans bg-light min-h-screen flex flex-col">
         <Navbar />
         <main className="grow flex flex-col">
           <Routes>
-            {/* This loads Hero by default */}
             <Route path="/" element={<Home />} />
             <Route path="/all-projects" element={<AllProjects />} />
           </Routes>
