@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'; // Removed useNavigate
 import cleanGenieImg from '../assets/clean-genie.png';
 import dashboardImg from '../assets/dashboard.png';
 import vilamagentaImg from '../assets/vilamagenta.png';
-import arieslyImg from '../assets/Ariesly.png';
+import arieslyImg from '../assets/ariesly.png';
 
 const allProjectData = [
   {
