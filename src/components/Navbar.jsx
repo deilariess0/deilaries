@@ -4,11 +4,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false); // State for mobile menu
+  const [isOpen, setIsOpen] = useState(false); // State for mobile sidebar
 
   // Function to handle navigating to sections, or going home first
   const handleSectionClick = (e, sectionId) => {
-    // Close mobile menu if open
+    // Close mobile sidebar if open
     setIsOpen(false);
     
     // If we are NOT on the home page
@@ -30,6 +30,9 @@ const Navbar = () => {
     e.preventDefault();
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  // Common link classes to avoid duplication
+  const linkClasses = "block py-4 text-slate-600 font-medium hover:text-blue-600 transition border-b border-gray-100";
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50 px-6 py-4">
@@ -86,31 +89,50 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* Hamburger Button (Mobile) */}
+        {/* Hamburger Button (Mobile) - Always stays dark, and disappears when menu is open */}
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-slate-700 focus:outline-none"
+          className={`md:hidden text-slate-700 focus:outline-none z-[70] relative transition-opacity duration-300 ${
+            isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
           aria-label="Toggle menu"
         >
-          {isOpen ? (
-            <i className="fas fa-times text-2xl"></i> // Close icon
-          ) : (
-            <i className="fas fa-bars text-2xl"></i> // Hamburger icon
-          )}
+          <i className="fas fa-bars text-2xl"></i>
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Sidebar Overlay (with Blur) */}
       <div 
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0'
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+          isOpen ? 'opacity-100 z-40' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* Mobile Sidebar Drawer - Right side */}
+      <div 
+        className={`fixed top-0 right-0 h-full w-72 bg-white/95 backdrop-blur-md shadow-2xl transform transition-transform duration-300 ease-in-out md:hidden z-50 flex flex-col ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex flex-col gap-4 pb-4">
+        {/* Sidebar Header with Close Button */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+          <span className="font-bold text-lg text-slate-800">Menu</span>
+          <button 
+            onClick={() => setIsOpen(false)} 
+            className="text-slate-500 hover:text-slate-800 focus:outline-none"
+            aria-label="Close menu"
+          >
+            <i className="fas fa-times text-xl"></i>
+          </button>
+        </div>
+
+        {/* Sidebar Links */}
+        <div className="flex flex-col px-6 pt-4 flex-grow overflow-y-auto">
           <Link 
             to="/"
             onClick={(e) => handleSectionClick(e, 'home')}
-            className="text-slate-600 font-medium hover:text-blue-600 transition py-2 border-b border-gray-100"
+            className={linkClasses}
           >
             Home
           </Link>
@@ -118,7 +140,7 @@ const Navbar = () => {
           <a 
             href="#projects"
             onClick={(e) => handleSectionClick(e, 'projects')}
-            className="text-slate-600 font-medium hover:text-blue-600 transition py-2 border-b border-gray-100"
+            className={linkClasses}
           >
             Project
           </a>
@@ -126,24 +148,26 @@ const Navbar = () => {
           <a 
             href="#skills"
             onClick={(e) => handleSectionClick(e, 'skills')}
-            className="text-slate-600 font-medium hover:text-blue-600 transition py-2 border-b border-gray-100"
+            className={linkClasses}
           >
             Skill
           </a>
           <a 
             href="#contact"
             onClick={(e) => handleSectionClick(e, 'contact')}
-            className="text-slate-600 font-medium hover:text-blue-600 transition py-2 border-b border-gray-100"
+            className={linkClasses}
           >
             Contact Me
           </a>
+        </div>
 
-          {/* Download CV Button (Mobile) */}
+        {/* Download CV Button (Sidebar - Pinned to bottom) */}
+        <div className="p-6 border-t border-gray-100 mt-auto">
           <a 
             href="https://drive.google.com/file/d/1ID6rRej1IEJVNs0oATbv4YS9s7nVf9AJ/view?usp=drive_link" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="flex items-center justify-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg text-sm font-semibold hover:bg-blue-700 transition shadow-md shadow-blue-200 mt-2"
+            className="flex items-center justify-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg text-sm font-semibold hover:bg-blue-700 transition shadow-md shadow-blue-200 w-full"
           >
             <i className="fas fa-download text-xs"></i> Download CV
           </a>
