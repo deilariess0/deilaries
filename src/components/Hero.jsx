@@ -1,5 +1,5 @@
 import React from 'react';
-import myPhoto from '../assets/image2.png'; // CHANGE THIS if your photo has a different name/case!
+import myPhoto from '../assets/image2.png'; 
 
 const Hero = () => {
   return (
@@ -8,11 +8,11 @@ const Hero = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-          {/* CHANGED flex-col-reverse to flex-col */}
+          
           <div className="flex flex-col md:flex-row items-center p-10 md:p-16 gap-12">
             
-            {/* LEFT SIDE: Image */}
-            <div className="w-full md:w-2/5 relative flex justify-center items-center">
+            {/* LEFT SIDE: Image - Added slideInLeft */}
+            <div className="w-full md:w-2/5 relative flex justify-center items-center animate-slide-in-left">
               <div className="absolute inset-0 bg-blue-100 rounded-full blur-2xl opacity-60 transform scale-110"></div>
               <div className="relative bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-full z-10">
                 <img 
@@ -29,12 +29,13 @@ const Hero = () => {
                 <div className="flex justify-center gap-6 mt-4 text-lg">
                    <a href="https://www.linkedin.com/in/deilariessantos/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition"><i className="fab fa-linkedin"></i></a>
                    <a href="https://github.com/deilariess0" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition"><i className="fab fa-github"></i></a>
+                   <a href="https://linktr.ee/deilaries" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition"><i className="fas fa-envelope"></i></a>
                 </div>
               </div>
             </div>
 
-            {/* RIGHT SIDE: Text */}
-            <div className="flex-1 w-full">
+            {/* RIGHT SIDE: Text - Added slideInRight */}
+            <div className="flex-1 w-full animate-slide-in-right">
               <p className="text-blue-600 font-bold tracking-widest uppercase text-sm">About Me</p>
               <h1 className="text-5xl font-extrabold text-slate-800 mt-2 leading-tight">
                 Hi, I'm <br /> <span className="text-blue-600">Deil Aries Santos</span>
@@ -49,18 +50,18 @@ const Hero = () => {
                 I care about writing clean, functional code and choosing tools that are simple and genuinely useful. I'm currently open to both freelance projects and full-time opportunities.
               </p>
               
-              {/* Updated Button Container: flex-col on mobile, flex-row on desktop */}
-              <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:justify-start justify-center">
-                <a href="https://www.linkedin.com/in/deilariessantos/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap w-full sm:w-auto">
+              {/* Updated Button Container: Grid for mobile, Flex for desktop */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-4 lg:justify-start">
+                <a href="https://www.linkedin.com/in/deilariessantos/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap">
                   <i className="fab fa-linkedin"></i> LINKEDIN
                 </a>
-                <a href="https://github.com/deilariess0" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap w-full sm:w-auto">
+                <a href="https://github.com/deilariess0" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap">
                   <i className="fab fa-github"></i> GITHUB
                 </a>
-                <a href="https://drive.google.com/file/d/1ID6rRej1IEJVNs0oATbv4YS9s7nVf9AJ/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap w-full sm:w-auto">
+                <a href="https://drive.google.com/file/d/1ID6rRej1IEJVNs0oATbv4YS9s7nVf9AJ/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap">
                   <i className="fas fa-file-alt"></i> RESUME
                 </a>
-                <a href="https://linktr.ee/deilaries" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap w-full sm:w-auto">
+                <a href="https://linktr.ee/deilaries" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap">
                   <i className="fas fa-envelope"></i> CONTACT ME
                 </a>
               </div>

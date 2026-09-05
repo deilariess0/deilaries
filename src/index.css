@@ -19,6 +19,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Remove mobile tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================================
+   EXISTING PAGE-LOAD ANIMATIONS (Hero)
+   ========================================= */
 @keyframes slideInLeft {
   from {
     opacity: 0;
@@ -47,4 +55,31 @@ html {
 
 .animate-slide-in-right {
   animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* =========================================
+   SCROLL REVEAL ANIMATIONS (Projects, Skills, etc.)
+   ========================================= */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial state before scrolling into view */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* When active class is added via JS */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
 }

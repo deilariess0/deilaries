@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // 1. IMPORT YOUR IMAGES AT THE TOP
@@ -35,16 +35,38 @@ const projectData = [
 
 const Projects = () => {
   const navigate = useNavigate();
+  const sectionRef = useRef(null);
+
+  // Intersection Observer to add 'active' class when scrolling into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      },
+      { threshold: 0.15 } // Slightly increased threshold so it triggers a bit further into view
+    );
+
+    // Select all elements with the 'reveal' class inside this section
+    const revealElements = sectionRef.current.querySelectorAll('.reveal');
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleViewMore = () => {
     navigate('/all-projects');
   };
 
   return (
-    <section id="projects" className="bg-dark text-white py-16 md:py-24 px-4 md:px-6">
+    <section id="projects" ref={sectionRef} className="bg-dark text-white py-16 md:py-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
+        
         {/* Header - stacks on mobile, flex on desktop */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-10 md:mb-16 gap-6">
+        <div className="reveal flex flex-col md:flex-row md:justify-between md:items-end mb-10 md:mb-16 gap-6">
           <div>
             <p className="text-blue-400 font-semibold tracking-widest uppercase text-sm">My Work</p>
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2">Featured Projects</h2>
@@ -63,9 +85,13 @@ const Projects = () => {
         {/* Responsive Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projectData.map((project, index) => (
-            <div key={index} className="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:border-blue-600 transition group flex flex-col">
+            <div 
+              key={index} 
+              className="reveal bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:border-blue-600 transition group flex flex-col hover:-translate-y-2"
+              style={{ transitionDelay: `${index * 250}ms` }} // Increased to 250ms for a slower stagger
+            >
               <div className="h-48 md:h-52 bg-slate-700 overflow-hidden">
-                <img src={project.img} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+                <img src={project.img} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
               </div>
               <div className="p-5 md:p-6 flex flex-col grow">
                 <h3 className="text-lg md:text-xl font-bold">{project.title}</h3>
