@@ -48,4 +48,24 @@ export const allProjectData = [
     img: fit4lessImg,
     link: "https://gym-management-mocha-one.vercel.app/"
   },
+  
+  // --- COMING SOON PROJECTS BELOW ---
+  {
+    title: "Project Name 1 (Coming Soon)",
+    type: "App / Website Type",
+    desc: "Description of what this upcoming project will be. This text will show until the project is launched.",
+    tech: ["React", "Tailwind CSS"],
+    img: fit4lessImg, // Using an existing image for now so it doesn't crash
+    link: "", // Empty link
+    comingSoon: true // Flag to tell the component this isn't live yet
+  },
+  {
+    title: "Project Name 2 (Coming Soon)",
+    type: "App / Website Type",
+    desc: "Description of what this upcoming project will be. This text will show until the project is launched.",
+    tech: ["JavaScript", "Node.js"],
+    img: fit4lessImg, // Using an existing image for now so it doesn't crash
+    link: "", // Empty link
+    comingSoon: true // Flag to tell the component this isn't live yet
+  },
 ];
