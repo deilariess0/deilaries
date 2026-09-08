@@ -25,6 +25,14 @@ export const allProjectData = [
     link: "https://booking-service-management-dashboar.vercel.app/login"
   },
   {
+    title: "FIT4LESS Gym Management System",
+    type: "Gym Management System",
+    desc: "A modern gym management system designed to replace manual pen-and-paper records, featuring member management, daily check-ins, membership plans, discounts, payments, and transaction tracking.",
+    tech: ["JavaScript", "React"],
+    img: fit4lessImg,
+    link: "https://gym-management-mocha-one.vercel.app/"
+  },
+  {
     title: "Vila Magenta - Private Resort & Events Place",
     type: "Business Website",
     desc: "A responsive website designed for Vila Magenta Resort and Events Place, showcasing its private resort facilities, accommodations, and event venue",
@@ -39,33 +47,5 @@ export const allProjectData = [
     tech: ["JavaScript", "React", "Tailwind CSS"],
     img: arieslyImg,
     link: "https://ariesly-ecommerce.vercel.app/"
-  },
-  {
-    title: "FIT4LESS Gym Management System",
-    type: "Gym Management System",
-    desc: "A modern gym management system designed to replace manual pen-and-paper records, featuring member management, daily check-ins, membership plans, discounts, payments, and transaction tracking.",
-    tech: ["JavaScript", "React"],
-    img: fit4lessImg,
-    link: "https://gym-management-mocha-one.vercel.app/"
-  },
-  
-  // --- COMING SOON PROJECTS BELOW ---
-  {
-    title: "Project Name 1 (Coming Soon)",
-    type: "App / Website Type",
-    desc: "Description of what this upcoming project will be. This text will show until the project is launched.",
-    tech: ["React", "Tailwind CSS"],
-    img: fit4lessImg, // Using an existing image for now so it doesn't crash
-    link: "", // Empty link
-    comingSoon: true // Flag to tell the component this isn't live yet
-  },
-  {
-    title: "Project Name 2 (Coming Soon)",
-    type: "App / Website Type",
-    desc: "Description of what this upcoming project will be. This text will show until the project is launched.",
-    tech: ["JavaScript", "Node.js"],
-    img: fit4lessImg, // Using an existing image for now so it doesn't crash
-    link: "", // Empty link
-    comingSoon: true // Flag to tell the component this isn't live yet
   },
 ];

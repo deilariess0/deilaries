@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // 1. IMPORT YOUR IMAGES AT THE TOP
 import cleanGenieImg from '../assets/clean-genie.png';
 import dashboardImg from '../assets/dashboard.png';
-import vilamagentaImg from '../assets/vilamagenta.png';
+import fit4lessImg from '../assets/fit4less.png';
 
 const projectData = [
   {
@@ -13,7 +13,7 @@ const projectData = [
     desc: "A web-based platform for booking cleaning services with an admin dashboard, scheduling, and booking management.",
     tech: ["HTML", "CSS", "JavaScript"],
     img: cleanGenieImg,
-    link: "https://deilariess0.github.io/Clean-Genie/"
+    link: "https://cleangenie.vercel.app/"
   },
   {
     title: "Booking Service Management Dashboard",
@@ -24,13 +24,13 @@ const projectData = [
     link: "https://booking-service-management-dashboar.vercel.app/login"
   },
   {
-    title: "Vila Magenta - Private Resort & Events Place",
-    type: "Business Website",
-    desc: "A responsive website designed for Vila Magenta Resort and Events Place, showcasing its private resort facilities, accommodations, and event venue",
-    tech: ["React", "Tailwind CSS"],
-    img: vilamagentaImg,
-    link: "https://vila-magenta-website.vercel.app/"
-  }
+    title: "FIT4LESS Gym Management System",
+    type: "Gym Management System",
+    desc: "A modern gym management system designed to replace manual pen-and-paper records, featuring member management, daily check-ins, membership plans, discounts, payments, and transaction tracking.",
+    tech: ["JavaScript", "React"],
+    img: fit4lessImg,
+    link: "https://gym-management-mocha-one.vercel.app/"
+  },
 ];
 
 const Projects = () => {
