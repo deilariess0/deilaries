@@ -77,7 +77,7 @@ const AppContent = () => {
     <>
       <ScrollToTop />
       
-      <div className="font-sans bg-light min-h-screen flex flex-col">
+      <div className="font-sans bg-dark min-h-screen flex flex-col">
         <Navbar />
         <main className="grow flex flex-col">
           <Routes>

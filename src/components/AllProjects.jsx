@@ -1,56 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-// 1. IMPORT YOUR IMAGES AT THE TOP
-import cleanGenieImg from '../assets/clean-genie.png';
-import dashboardImg from '../assets/dashboard.png';
-import vilamagentaImg from '../assets/vilamagenta.png';
-import arieslyImg from '../assets/ariesly.png';
-import fit4lessImg from '../assets/fit4less.png';
-
-const allProjectData = [
-  {
-    title: "Clean Genie – Service Request System",
-    type: "Service Booking Platform",
-    desc: "A web-based platform for booking cleaning services with an admin dashboard, scheduling, and booking management.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    img: cleanGenieImg,
-    link: "https://deilariess0.github.io/Clean-Genie/"
-  },
-  {
-    title: "Booking Service Management Dashboard",
-    type: "Admin Dashboard",
-    desc: "Admin panel for managing users, bookings, and services, with real-time analytics and responsive design.",
-    tech: ["React", "Tailwind CSS", "Chart.js"],
-    img: dashboardImg,
-    link: "https://booking-service-management-dashboar.vercel.app/login"
-  },
-  {
-    title: "Vila Magenta - Private Resort & Events Place",
-    type: "Business Website",
-    desc: "A responsive website designed for Vila Magenta Resort and Events Place, showcasing its private resort facilities, accommodations, and event venue",
-    tech: ["React", "Tailwind CSS"],
-    img: vilamagentaImg,
-    link: "https://vila-magenta-website.vercel.app/"
-  },
-  {
-    title: "Ariesly E-Commerce Storefront",
-    type: "E-Commerce Platform",
-    desc: "A modern e-commerce platform featuring product listings, shopping cart functionality, and a seamless checkout experience.",
-    tech: ["JavaScript", "React", "Tailwind CSS"],
-    img: arieslyImg,
-    link: "https://ariesly-ecommerce.vercel.app/"
-  },
-  // 2. ADD YOUR NEW PROJECT HERE
-  {
-    title: "FIT4LESS Gym Management System",
-    type: "Gym Management System",
-    desc: "A modern gym management system designed to replace manual pen-and-paper records, featuring member management, daily check-ins, membership plans, discounts, payments, and transaction tracking.",
-    tech: ["JavaScript", "React"],
-    img: fit4lessImg,
-    link: "https://gym-management-mocha-one.vercel.app/"
-  },
-];
+// Import your data from the separate file
+import { allProjectData } from '../data/projectsData';
 
 const AllProjects = () => {
   const sectionRef = useRef(null);
@@ -68,7 +20,6 @@ const AllProjects = () => {
       { threshold: 0.15 }
     );
 
-    // Select all elements with the 'reveal' class inside this section
     const revealElements = sectionRef.current.querySelectorAll('.reveal');
     revealElements.forEach((el) => observer.observe(el));
 
@@ -76,10 +27,10 @@ const AllProjects = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-dark text-white py-16 md:py-24 px-4 md:px-6 min-h-screen pb-16">
+    <section ref={sectionRef} className="bg-dark text-white py-10 px-6 md:px-6 min-h-screen pb-16">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header - stacks on mobile, flex on desktop */}
+        {/* Header */}
         <div className="reveal flex flex-col md:flex-row md:justify-between md:items-center mb-10 md:mb-16 gap-6">
           <div>
             <p className="text-blue-400 font-semibold tracking-widest uppercase text-sm">My Work</p>
@@ -87,7 +38,6 @@ const AllProjects = () => {
             <p className="text-slate-400 mt-3">Here is a complete list of everything I have built.</p>
           </div>
           
-          {/* Back Button - full width on mobile */}
           <Link 
             to="/" 
             className="border-2 border-blue-600 text-blue-400 px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition w-full md:w-auto text-center"
@@ -102,7 +52,7 @@ const AllProjects = () => {
             <div 
               key={index} 
               className="reveal bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:border-blue-600 transition group flex flex-col hover:-translate-y-2"
-              style={{ transitionDelay: `${index * 250}ms` }} // Slow staggered delay
+              style={{ transitionDelay: `${index * 250}ms` }}
             >
               <div className="h-48 md:h-52 bg-slate-700 overflow-hidden">
                 <img src={project.img} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />

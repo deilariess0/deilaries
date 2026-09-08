@@ -62,7 +62,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" ref={sectionRef} className="bg-dark text-white py-16 md:py-24 px-4 md:px-6">
+    <section id="projects" ref={sectionRef} className="bg-dark text-white py-24 px-6">
       <div className="max-w-7xl mx-auto">
         
         {/* Header - stacks on mobile, flex on desktop */}

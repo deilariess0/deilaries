@@ -92,7 +92,7 @@ const Navbar = () => {
         {/* Hamburger Button (Mobile) - Always stays dark, and disappears when menu is open */}
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className={`md:hidden text-slate-700 focus:outline-none z-[70] relative transition-opacity duration-300 ${
+          className={`md:hidden text-slate-700 focus:outline-none z-70 relative transition-opacity duration-300 ${
             isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
           }`}
           aria-label="Toggle menu"
@@ -128,7 +128,7 @@ const Navbar = () => {
         </div>
 
         {/* Sidebar Links */}
-        <div className="flex flex-col px-6 pt-4 flex-grow overflow-y-auto">
+        <div className="flex flex-col px-6 pt-4 grow overflow-y-auto">
           <Link 
             to="/"
             onClick={(e) => handleSectionClick(e, 'home')}
