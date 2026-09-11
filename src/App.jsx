@@ -88,7 +88,7 @@ const AppContent = () => {
 
         <footer className="bg-dark text-white py-8 px-6 w-full">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-slate-400 border-t border-slate-800 pt-6">
-            <p>© 2024 Deil Aries Santos. All rights reserved.</p>
+            <p>© 2026 Deil Aries Santos. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0 text-xl">
               <a href="https://www.linkedin.com/in/deilariessantos/" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition"><i className="fab fa-linkedin"></i></a>
               <a href="https://github.com/deilariess0" target="_blank" rel="noreferrer" className="hover:text-white transition"><i className="fab fa-github"></i></a>
