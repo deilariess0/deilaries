@@ -10,18 +10,16 @@ import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AllProjects from './components/AllProjects';
+import PrivacyGate from './components/PrivacyGate';
 
 /* ------------------------------------------------------------------
    Scroll to top on every route change.
-   If navigation was triggered with state.target (e.g. section jump
-   from another page), scroll to that element instead.
 ------------------------------------------------------------------ */
 const ScrollToTop = () => {
   const { pathname, state } = useLocation();
 
   useEffect(() => {
     if (state?.target) {
-      // let the new page paint, then jump to the target section
       const id = setTimeout(() => {
         document.getElementById(state.target)?.scrollIntoView({ behavior: 'smooth' });
       }, 120);
@@ -35,8 +33,6 @@ const ScrollToTop = () => {
 
 /* ------------------------------------------------------------------
    Global reveal-on-scroll.
-   Observes every .reveal element and adds .in when it enters view.
-   Re-runs on every route change so newly mounted sections animate.
 ------------------------------------------------------------------ */
 const useScrollReveal = () => {
   const { pathname } = useLocation();
@@ -61,9 +57,6 @@ const useScrollReveal = () => {
     };
 
     observeAll();
-
-    /* Re-scan on the next frame — catches elements that mount after the
-       route change commits (e.g. lazy sections on /all-projects). */
     const rafId = requestAnimationFrame(observeAll);
 
     return () => {
@@ -112,12 +105,14 @@ const AppContent = () => {
 };
 
 /* ------------------------------------------------------------------
-   Root — Router wraps everything
+   Root — Router wraps PrivacyGate, which wraps AppContent
 ------------------------------------------------------------------ */
 export default function App() {
   return (
     <Router>
-      <AppContent />
+      <PrivacyGate>
+        <AppContent />
+      </PrivacyGate>
     </Router>
   );
 }
