@@ -14,6 +14,7 @@
   --rule:        #0A0A0A;
   --accent:      #0F62FE;
   --accent-ink:  #0043CE;
+  --status:      #22C55E;   /* green — "open to work" / "available" */
 
   --sans:  'IBM Plex Sans', Helvetica, Arial, sans-serif;
   --mono:  'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
@@ -67,8 +68,21 @@ button { background: none; border: 0; color: inherit; font: inherit; cursor: poi
 .head-in { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 64px; }
 
 .brand { display: flex; align-items: center; gap: 12px; font: 600 12px var(--mono); letter-spacing: .16em; }
-.brand-mark { width: 26px; height: 26px; background: var(--ink); display: grid; place-items: center; flex: none; }
-.brand-mark i { width: 8px; height: 8px; background: var(--accent); }
+
+/* --- DA monogram mark --- */
+.brand-mark {
+  width: 26px;
+  height: 26px;
+  background: var(--ink);
+  color: var(--bg);
+  display: grid;
+  place-items: center;
+  flex: none;
+  font: 700 10px var(--mono);
+  letter-spacing: .06em;
+  padding-bottom: 1px;
+}
+
 .brand-sub { color: var(--muted); }
 
 .nav { display: flex; gap: clamp(14px, 2.4vw, 32px); }
@@ -190,7 +204,8 @@ button { background: none; border: 0; color: inherit; font: inherit; cursor: poi
 }
 .kicker .st { display: inline-flex; align-items: center; gap: 10px; }
 
-.dot { width: 8px; height: 8px; background: var(--accent); flex: none; animation: pulse 2.4s var(--ease) infinite; }
+/* --- status dot — GREEN --- */
+.dot { width: 8px; height: 8px; background: var(--status); flex: none; animation: pulse 2.4s var(--ease) infinite; }
 @keyframes pulse { 50% { opacity: .35; } }
 
 .h-title {
@@ -224,8 +239,10 @@ button { background: none; border: 0; color: inherit; font: inherit; cursor: poi
   padding: 9px 12px; background: var(--ink); color: var(--bg);
   font: 600 9.5px var(--mono); letter-spacing: .16em;
 }
-.ph-cap em { font-style: normal; color: #7FA6FF; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
-.ph-cap .dot { background: #7FA6FF; }
+
+/* --- AVAILABLE — GREEN --- */
+.ph-cap em { font-style: normal; color: var(--status); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.ph-cap .dot { background: var(--status); }
 
 /* ==========================================================================
    TECH STRIP — mobile-friendly, scrolls on overflow
@@ -302,7 +319,10 @@ button { background: none; border: 0; color: inherit; font: inherit; cursor: poi
 .spec-row:last-child { border-bottom: 0; }
 .spec-dt { font: 500 10px var(--mono); letter-spacing: .16em; color: var(--muted); text-transform: uppercase; padding-top: 3px; }
 .spec-dd { color: var(--ink); font-weight: 500; }
+
+/* --- Open to work — GREEN --- */
 .spec-dd .st { display: inline-flex; align-items: center; gap: 9px; font-weight: 600; }
+.spec-dd .st .dot { background: var(--status); animation: none; }
 
 .facts {
   display: grid; grid-template-columns: repeat(4, 1fr);
@@ -554,8 +574,7 @@ button { background: none; border: 0; color: inherit; font: inherit; cursor: poi
   .burger  { display: inline-flex; width: 44px; height: 44px; }
   .head-in { gap: 12px; height: 60px; }
   .brand   { font-size: 11px; gap: 10px; }
-  .brand-mark { width: 22px; height: 22px; }
-  .brand-mark i { width: 7px; height: 7px; }
+  .brand-mark { width: 22px; height: 22px; font-size: 9px; }
   .drawer { height: 100dvh; }
   .drawer-foot { padding-bottom: calc(22px + env(safe-area-inset-bottom)); }
 }

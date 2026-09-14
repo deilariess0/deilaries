@@ -124,7 +124,7 @@ const Navbar = () => {
         <div className="wrap head-in">
           {/* brand */}
           <a className="brand" href="#top" onClick={handleBrand} aria-label="Back to top">
-            <span className="brand-mark"><i /></span>
+            <span className="brand-mark" aria-hidden="true">DA</span>
             <span>DEIL ARIES SANTOS</span>
             <span className="brand-sub">/ FULL-STACK</span>
           </a>

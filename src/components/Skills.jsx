@@ -32,7 +32,7 @@ const Skills = () => (
     <div className="wrap">
       <div className="sec-head reveal">
         <span className="sec-idx">03</span>
-        <h2 className="sec-title">Capabilities</h2>
+        <h2 className="sec-title">Skills</h2>
         <span className="sec-rule" />
         <span className="sec-meta">In active use / shipped to production</span>
       </div>
