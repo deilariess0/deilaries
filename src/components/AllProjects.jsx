@@ -1,88 +1,104 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PROJECTS } from '../data/projectsData';
 
-// Import your data from the separate file
-import { allProjectData } from '../data/projectsData';
+/* --- inline icons ------------------------------------------------ */
+const ArrowNE = ({ size = 12 }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="square" aria-hidden="true">
+    <path d="M7 17 17 7M9 7h8v8" />
+  </svg>
+);
 
-const AllProjects = () => {
-  const sectionRef = useRef(null);
+const ArrowLeft = ({ size = 12 }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="square" aria-hidden="true">
+    <path d="M19 12H5m0 0 6-6m-6 6 6 6" />
+  </svg>
+);
 
-  // Intersection Observer to add 'active' class when scrolling into view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    const revealElements = sectionRef.current.querySelectorAll('.reveal');
-    revealElements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+/* --- single project panel ---------------------------------------- */
+const ProjectPanel = ({ project, index }) => {
+  const [imgOk, setImgOk] = useState(true);
 
   return (
-    <section ref={sectionRef} className="bg-dark text-white py-10 px-6 md:px-6 min-h-screen pb-16">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Header */}
-        <div className="reveal flex flex-col md:flex-row md:justify-between md:items-center mb-10 md:mb-16 gap-6">
-          <div>
-            <p className="text-blue-400 font-semibold tracking-widest uppercase text-sm">My Work</p>
-            <h2 className="text-3xl md:text-4xl font-extrabold mt-2">All Projects</h2>
-            <p className="text-slate-400 mt-3">Here is a complete list of everything I have built.</p>
-          </div>
-          
-          <Link 
-            to="/" 
-            className="border-2 border-blue-600 text-blue-400 px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition w-full md:w-auto text-center"
-          >
-            ← Back to Home
-          </Link>
-        </div>
-        
-        {/* Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {allProjectData.map((project, index) => (
-            <div 
-              key={index} 
-              className="reveal bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:border-blue-600 transition group flex flex-col hover:-translate-y-2"
-              style={{ transitionDelay: `${index * 250}ms` }}
-            >
-              <div className="h-48 md:h-52 bg-slate-700 overflow-hidden">
-                <img src={project.img} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-              </div>
-              <div className="p-5 md:p-6 flex flex-col grow">
-                <h3 className="text-lg md:text-xl font-bold">{project.title}</h3>
-                <p className="text-blue-400 text-sm mt-2 font-medium">{project.type}</p>
-                <p className="text-slate-400 text-sm mt-3 leading-relaxed grow">{project.desc}</p>
-                
-                <div className="flex gap-2 mt-6 flex-wrap items-center pb-2">
-                  {project.tech.map((tech, i) => (
-                    <span key={i} className="bg-slate-700 text-slate-200 px-3 py-1 rounded-md text-xs font-semibold mb-2">{tech}</span>
-                  ))}
-                  
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noreferrer" 
-                    className="ml-auto text-slate-400 hover:text-white transition mb-2"
-                  >
-                    <i className="fas fa-external-link-alt"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
+    <article
+      className="pd-panel reveal"
+      style={{ '--d': `${Math.min(index * 0.05, 0.2)}s` }}
+    >
+      {imgOk && (
+        <figure className="pd-fig">
+          <img
+            src={project.img}
+            alt={`${project.name} screenshot`}
+            loading="lazy"
+            onError={() => setImgOk(false)}
+          />
+          <figcaption>{project.cap}</figcaption>
+        </figure>
+      )}
+
+      <div className="pd-body">
+        <span className="pd-type">{project.type}</span>
+        <h3 className="pd-name">{project.name}</h3>
+        <p className="pd-desc">{project.desc}</p>
+
+        <ul className="pd-points">
+          {project.points.map((pt, i) => (
+            <li key={i}>{pt}</li>
           ))}
+        </ul>
+
+        <div className="pd-foot">
+          <div className="pd-tags">
+            {project.stack.map((s) => (
+              <span key={s} className="pd-tag">{s}</span>
+            ))}
+          </div>
+          <a
+            className="pd-link"
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            VIEW PROJECT <ArrowNE />
+          </a>
         </div>
       </div>
-    </section>
+    </article>
   );
 };
+
+/* --- page -------------------------------------------------------- */
+const AllProjects = () => (
+  <section id="all-projects" className="sec" style={{ minHeight: '100vh' }}>
+    <div className="wrap">
+      {/* Header row: index + title + rule + meta */}
+      <div className="sec-head reveal">
+        <span className="sec-idx">02</span>
+        <h2 className="sec-title">All Projects</h2>
+        <span className="sec-rule" />
+        <span className="sec-meta">{PROJECTS.length} builds / full archive</span>
+      </div>
+
+      {/* Intro row with proper "Back to home" button */}
+      <div className="all-intro reveal">
+        <p className="sec-intro" style={{ margin: 0 }}>
+          Every project I&apos;ve shipped — the complete archive, schema to screen.
+        </p>
+
+        <Link to="/" className="btn btn-ghost back-home">
+          <ArrowLeft /> BACK TO HOME
+        </Link>
+      </div>
+
+      <div className="all-list">
+        {PROJECTS.map((p, i) => (
+          <ProjectPanel key={p.key} project={p} index={i} />
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default AllProjects;

@@ -3,110 +3,121 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import TechStrip from './components/TechStrip';
+import About from './components/About';
 import Projects from './components/Projects';
-import AllProjects from './components/AllProjects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
+import Footer from './components/Footer';
+import AllProjects from './components/AllProjects';
 
+/* ------------------------------------------------------------------
+   Scroll to top on every route change.
+   If navigation was triggered with state.target (e.g. section jump
+   from another page), scroll to that element instead.
+------------------------------------------------------------------ */
 const ScrollToTop = () => {
   const { pathname, state } = useLocation();
 
   useEffect(() => {
-    if (state && state.target) {
-      setTimeout(() => {
-        const element = document.getElementById(state.target);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    } else {
-      window.scrollTo(0, 0);
+    if (state?.target) {
+      // let the new page paint, then jump to the target section
+      const id = setTimeout(() => {
+        document.getElementById(state.target)?.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+      return () => clearTimeout(id);
     }
+    window.scrollTo(0, 0);
   }, [pathname, state]);
 
   return null;
 };
 
-const Home = () => {
-  return (
-    <>
-      <Hero />
-      <Projects />
-      <Skills />
-      <Contact />
-    </>
-  );
-};
+/* ------------------------------------------------------------------
+   Global reveal-on-scroll.
+   Observes every .reveal element and adds .in when it enters view.
+   Re-runs on every route change so newly mounted sections animate.
+------------------------------------------------------------------ */
+const useScrollReveal = () => {
+  const { pathname } = useLocation();
 
-// 1. WE CREATE A SEPARATE CHILD COMPONENT THAT WRAPS EVERYTHING INSIDE THE ROUTER
-const AppContent = () => {
-  const location = useLocation(); // THIS IS NOW ALLOWED
-
-  // Global Scroll Reveal Logic
   useEffect(() => {
-    const revealOnScroll = () => {
-      const revealElements = document.querySelectorAll('.reveal');
-      const windowHeight = window.innerHeight;
-      const elementVisible = 150;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
 
-      revealElements.forEach((reveal) => {
-        const elementTop = reveal.getBoundingClientRect().top;
-        if (elementTop < windowHeight - elementVisible) {
-          reveal.classList.add('active');
-        }
+    const observeAll = () => {
+      document.querySelectorAll('.reveal:not(.in)').forEach((el) => {
+        observer.observe(el);
       });
     };
 
-    // Initial check on load
-    revealOnScroll();
+    observeAll();
 
-    // Add event listener
-    window.addEventListener('scroll', revealOnScroll);
-    
-    // CRITICAL FIX: Force a re-check 200ms after route change to catch elements that were missed
-    const timeoutId = setTimeout(revealOnScroll, 200);
-    
-    // Cleanup
+    /* Re-scan on the next frame — catches elements that mount after the
+       route change commits (e.g. lazy sections on /all-projects). */
+    const rafId = requestAnimationFrame(observeAll);
+
     return () => {
-      window.removeEventListener('scroll', revealOnScroll);
-      clearTimeout(timeoutId);
+      cancelAnimationFrame(rafId);
+      observer.disconnect();
     };
-  }, [location.pathname]);
+  }, [pathname]);
+};
+
+/* ------------------------------------------------------------------
+   Page: Home
+------------------------------------------------------------------ */
+const Home = () => (
+  <>
+    <Hero />
+    <TechStrip />
+    <About />
+    <Projects />
+    <Skills />
+    <Contact />
+  </>
+);
+
+/* ------------------------------------------------------------------
+   App content (inside Router so hooks work)
+------------------------------------------------------------------ */
+const AppContent = () => {
+  useScrollReveal();
 
   return (
     <>
+      <a className="skip" href="#main">Skip to content</a>
       <ScrollToTop />
-      
-      <div className="font-sans bg-dark min-h-screen flex flex-col">
-        <Navbar />
-        <main className="grow flex flex-col">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/all-projects" element={<AllProjects />} />
-          </Routes>
-        </main>
+      <Navbar />
 
-        <footer className="bg-dark text-white py-8 px-6 w-full">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-slate-400 border-t border-slate-800 pt-6">
-            <p>© 2026 Deil Aries Santos. All rights reserved.</p>
-            <div className="flex gap-6 mt-4 md:mt-0 text-xl">
-              <a href="https://www.linkedin.com/in/deilariessantos/" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition"><i className="fab fa-linkedin"></i></a>
-              <a href="https://github.com/deilariess0" target="_blank" rel="noreferrer" className="hover:text-white transition"><i className="fab fa-github"></i></a>
-            </div>
-          </div>
-        </footer>
-      </div>
+      <main id="main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/all-projects" element={<AllProjects />} />
+        </Routes>
+      </main>
+
+      <Footer />
     </>
   );
 };
 
-// 2. MAIN APP JUST WRAPS AppContent IN THE ROUTER
-function App() {
+/* ------------------------------------------------------------------
+   Root — Router wraps everything
+------------------------------------------------------------------ */
+export default function App() {
   return (
     <Router>
       <AppContent />
     </Router>
   );
 }
-
-export default App;

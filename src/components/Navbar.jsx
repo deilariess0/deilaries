@@ -1,179 +1,233 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+const LINKS = [
+  { id: 'about', label: 'ABOUT' },
+  { id: 'work', label: 'PROJECTS' },
+  { id: 'skills', label: 'SKILLS' },
+  { id: 'contact', label: 'CONTACT' },
+];
+
+const CV_URL =
+  'https://drive.google.com/file/d/1ID6rRej1IEJVNs0oATbv4YS9s7nVf9AJ/view?usp=drive_link';
+
+/* --- inline icons -------------------------------------------------- */
+const IconDownload = () => (
+  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="square" aria-hidden="true">
+    <path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14" />
+  </svg>
+);
+
+const IconBars = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="square" aria-hidden="true">
+    <path d="M4 7h16M4 12h16M4 17h16" />
+  </svg>
+);
+
+const IconClose = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="square" aria-hidden="true">
+    <path d="M6 6l12 12M18 6 6 18" />
+  </svg>
+);
+
+/* --- component ----------------------------------------------------- */
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false); // State for mobile sidebar
+  const [isOpen, setIsOpen] = useState(false);
+  const [time, setTime] = useState('');
+  const [active, setActive] = useState('');
 
-  // Function to handle navigating to sections, or going home first
-  const handleSectionClick = (e, sectionId) => {
-    // Close mobile sidebar if open
-    setIsOpen(false);
-    
-    // If we are NOT on the home page
-    if (location.pathname !== '/') {
-      e.preventDefault(); // Stop the default jump
-      navigate('/'); // Go back to home page
-      
-      // Wait for the page to load, then scroll to the section
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100); // 100ms delay to let React render the home page
-      return; 
+  /* live clock — Asia/Manila */
+  useEffect(() => {
+    let fmt = null;
+    try {
+      fmt = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Manila',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      });
+    } catch {
+      /* fall back to local time */
     }
-    
-    // If we ARE on the home page, just smooth scroll
+    const tick = () =>
+      setTime(fmt ? fmt.format(new Date()) : new Date().toLocaleTimeString());
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  /* scrollspy — only active on home page */
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActive('');
+      return;
+    }
+    const sections = LINKS.map((l) => document.getElementById(l.id)).filter(Boolean);
+    if (!sections.length) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) setActive(en.target.id);
+        });
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    );
+    sections.forEach((s) => obs.observe(s));
+    return () => obs.disconnect();
+  }, [location.pathname]);
+
+  /* close drawer when route changes */
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  /* lock body scroll while drawer open */
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  /* section navigation: from any route, go home first then scroll */
+  const handleSectionClick = (e, sectionId) => {
     e.preventDefault();
+    setIsOpen(false);
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+      return;
+    }
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Common link classes to avoid duplication
-  const linkClasses = "block py-4 text-slate-600 font-medium hover:text-blue-600 transition border-b border-gray-100";
+  const handleBrand = (e) => {
+    e.preventDefault();
+    setIsOpen(false);
+    if (location.pathname !== '/') navigate('/');
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50 px-6 py-4">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
-          <span className="font-bold text-xl text-slate-800 tracking-tight">Deil Aries Santos</span>
-        </Link>
+    <>
+      <header className="site-head">
+        <div className="wrap head-in">
+          {/* brand */}
+          <a className="brand" href="#top" onClick={handleBrand} aria-label="Back to top">
+            <span className="brand-mark"><i /></span>
+            <span>DEIL ARIES SANTOS</span>
+            <span className="brand-sub">/ FULL-STACK</span>
+          </a>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8 text-slate-600 font-medium text-[15px]">
-          <Link 
-            to="/"
-            onClick={(e) => handleSectionClick(e, 'home')}
-            className="transition hover:text-blue-600"
-          >
-            Home
-          </Link>
-          
-          <a 
-            href="#projects"
-            onClick={(e) => handleSectionClick(e, 'projects')}
-            className="transition hover:text-blue-600"
-          >
-            Project
-          </a>
-          
-          <a 
-            href="#skills"
-            onClick={(e) => handleSectionClick(e, 'skills')}
-            className="transition hover:text-blue-600"
-          >
-            Skill
-          </a>
-          <a 
-            href="#contact"
-            onClick={(e) => handleSectionClick(e, 'contact')}
-            className="transition hover:text-blue-600"
-          >
-            Contact Me
-          </a>
+          {/* desktop nav */}
+          <nav className="nav" aria-label="Sections">
+            {LINKS.map((l) => (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                className={active === l.id ? 'act' : ''}
+                onClick={(e) => handleSectionClick(e, l.id)}
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* right cluster */}
+          <div className="head-right">
+            <span className="clock">
+              LOCAL <b>{time || '--:--:--'}</b> GMT+8
+            </span>
+
+            <a
+              className="btn btn-solid head-cv"
+              href={CV_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IconDownload /> DOWNLOAD CV
+            </a>
+
+            <button
+              type="button"
+              className="burger"
+              onClick={() => setIsOpen((v) => !v)}
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isOpen}
+              aria-controls="mobile-drawer"
+            >
+              {isOpen ? <IconClose /> : <IconBars />}
+            </button>
+          </div>
         </div>
+      </header>
 
-        {/* Download CV Button (Desktop) */}
-        <div className="hidden md:block">
-          <a 
-            href="https://drive.google.com/file/d/1ID6rRej1IEJVNs0oATbv4YS9s7nVf9AJ/view?usp=drive_link" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition shadow-md shadow-blue-200"
-          >
-            <i className="fas fa-download text-xs"></i> Download CV
-          </a>
-        </div>
-
-        {/* Hamburger Button (Mobile) - Always stays dark, and disappears when menu is open */}
-        <button 
-          onClick={() => setIsOpen(!isOpen)}
-          className={`md:hidden text-slate-700 focus:outline-none z-70 relative transition-opacity duration-300 ${
-            isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
-          }`}
-          aria-label="Toggle menu"
-        >
-          <i className="fas fa-bars text-2xl"></i>
-        </button>
-      </div>
-
-      {/* Mobile Sidebar Overlay (with Blur) */}
-      <div 
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-          isOpen ? 'opacity-100 z-40' : 'opacity-0 pointer-events-none'
-        }`}
+      {/* overlay */}
+      <div
+        className={`drawer-overlay ${isOpen ? 'show' : ''}`}
         onClick={() => setIsOpen(false)}
+        aria-hidden="true"
       />
 
-      {/* Mobile Sidebar Drawer - Right side */}
-      <div 
-        className={`fixed top-0 right-0 h-full w-72 bg-white/95 backdrop-blur-md shadow-2xl transform transition-transform duration-300 ease-in-out md:hidden z-50 flex flex-col ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+      {/* mobile drawer */}
+      <aside
+        id="mobile-drawer"
+        className={`drawer ${isOpen ? 'open' : ''}`}
+        aria-hidden={!isOpen}
       >
-        {/* Sidebar Header with Close Button */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
-          <span className="font-bold text-lg text-slate-800">Menu</span>
-          <button 
-            onClick={() => setIsOpen(false)} 
-            className="text-slate-500 hover:text-slate-800 focus:outline-none"
+        <div className="drawer-head">
+          <span className="drawer-title">MENU</span>
+          <button
+            type="button"
+            className="drawer-close"
+            onClick={() => setIsOpen(false)}
             aria-label="Close menu"
           >
-            <i className="fas fa-times text-xl"></i>
+            <IconClose />
           </button>
         </div>
 
-        {/* Sidebar Links */}
-        <div className="flex flex-col px-6 pt-4 grow overflow-y-auto">
-          <Link 
-            to="/"
-            onClick={(e) => handleSectionClick(e, 'home')}
-            className={linkClasses}
-          >
-            Home
+        <nav className="drawer-links" aria-label="Mobile">
+          <Link to="/" onClick={(e) => handleSectionClick(e, 'top')}>
+            HOME
           </Link>
-          
-          <a 
-            href="#projects"
-            onClick={(e) => handleSectionClick(e, 'projects')}
-            className={linkClasses}
-          >
-            Project
-          </a>
-          
-          <a 
-            href="#skills"
-            onClick={(e) => handleSectionClick(e, 'skills')}
-            className={linkClasses}
-          >
-            Skill
-          </a>
-          <a 
-            href="#contact"
-            onClick={(e) => handleSectionClick(e, 'contact')}
-            className={linkClasses}
-          >
-            Contact Me
-          </a>
-        </div>
+          {LINKS.map((l) => (
+            <a
+              key={l.id}
+              href={`#${l.id}`}
+              onClick={(e) => handleSectionClick(e, l.id)}
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
 
-        {/* Download CV Button (Sidebar - Pinned to bottom) */}
-        <div className="p-6 border-t border-gray-100 mt-auto">
-          <a 
-            href="https://drive.google.com/file/d/1ID6rRej1IEJVNs0oATbv4YS9s7nVf9AJ/view?usp=drive_link" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="flex items-center justify-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg text-sm font-semibold hover:bg-blue-700 transition shadow-md shadow-blue-200 w-full"
+        <div className="drawer-foot">
+          <a
+            className="btn btn-solid"
+            href={CV_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ width: '100%', justifyContent: 'center' }}
           >
-            <i className="fas fa-download text-xs"></i> Download CV
+            <IconDownload /> DOWNLOAD CV
           </a>
+          <div className="drawer-meta">
+            LOCAL <b>{time || '--:--:--'}</b> · GMT+8
+          </div>
         </div>
-      </div>
-    </nav>
+      </aside>
+    </>
   );
 };
 

@@ -1,73 +1,130 @@
-import React from 'react';
-import myPhoto from '../assets/image2.png'; 
+import React, { useState } from 'react';
+import myPhoto from '../assets/image2.png';
 
+/* --- inline icons ----------------------------------------------------- */
+const ArrowNE = () => (
+  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="square" aria-hidden="true">
+    <path d="M7 17 17 7M9 7h8v8" />
+  </svg>
+);
+
+const IconLinkedIn = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.064 2.064 0 1 1 0-4.128 2.064 2.064 0 0 1 0 4.128zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
+  </svg>
+);
+
+const IconGithub = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+  </svg>
+);
+
+const IconMail = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+    strokeWidth="1.8" strokeLinecap="square" aria-hidden="true">
+    <rect x="3" y="5" width="18" height="14" rx="1" />
+    <path d="m3 7 9 6 9-6" />
+  </svg>
+);
+
+const IconFile = () => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+    strokeWidth="1.8" strokeLinecap="square" aria-hidden="true">
+    <path d="M14 3v6h6" />
+    <path d="M6 3h8l6 6v12H6z" />
+    <path d="M9 14h6M9 17h6" />
+  </svg>
+);
+
+/* ---------------------------------------------------------------------- */
 const Hero = () => {
+  const [imgOk, setImgOk] = useState(true);
+
+  const scrollTo = (id) => (e) => {
+    e.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section id="home" className="bg-light py-16 px-6 relative overflow-hidden">
-      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-blue-100 blur-3xl opacity-50 pointer-events-none"></div>
+    <section className="wrap hero" id="top">
+      {/* LEFT — headline + copy + ctas */}
+      <div>
+        <div className="kicker reveal">
+          <span className="st">
+            <i className="dot" />
+            OPEN TO WORK — FREELANCE &amp; FULL-TIME
+          </span>
+          <span>BULACAN, PH · GMT+8</span>
+        </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-          
-          <div className="flex flex-col md:flex-row items-center p-10 md:p-16 gap-12">
-            
-            {/* LEFT SIDE: Image - Added slideInLeft */}
-            <div className="w-full md:w-2/5 relative flex justify-center items-center animate-slide-in-left">
-              <div className="absolute inset-0 bg-blue-100 rounded-full blur-2xl opacity-60 transform scale-110"></div>
-              <div className="relative bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-full z-10">
-                <img 
-                  src={myPhoto} 
-                  alt="Profile" 
-                  className="w-80 h-96 object-cover rounded-3xl shadow-2xl border-4 border-white"
-                />
-              </div>
-              
-              {/* Dark Name Plate */}
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-xs bg-dark text-white p-6 rounded-3xl shadow-2xl z-20 text-center">
-                <h2 className="text-xl font-bold tracking-widest">DEIL ARIES SANTOS</h2>
-                <p className="text-blue-400 text-sm mt-1">Full Stack Developer</p>
-                <div className="flex justify-center gap-6 mt-4 text-lg">
-                   <a href="https://www.linkedin.com/in/deilariessantos/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition"><i className="fab fa-linkedin"></i></a>
-                   <a href="https://github.com/deilariess0" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition"><i className="fab fa-github"></i></a>
-                   <a href="https://linktr.ee/deilaries" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition"><i className="fas fa-envelope"></i></a>
-                </div>
-              </div>
-            </div>
+        <h1 className="h-title reveal" style={{ '--d': '.05s' }}>
+          Software for businesses that{' '}
+          <span className="acc">outgrew paper.</span>
+        </h1>
 
-            {/* RIGHT SIDE: Text - Added slideInRight */}
-            <div className="flex-1 w-full animate-slide-in-right">
-              <p className="text-blue-600 font-bold tracking-widest uppercase text-sm">About Me</p>
-              <h1 className="text-5xl font-extrabold text-slate-800 mt-2 leading-tight">
-                Hi, I'm <br /> <span className="text-blue-600">Deil Aries Santos</span>
-              </h1>
-              <p className="text-slate-500 mt-3 font-medium">FULL STACK DEVELOPER</p>
-              <div className="w-16 h-1 bg-blue-600 mt-6 mb-8"></div>
-              
-              <p className="text-slate-600 leading-relaxed mb-4">
-                I'm a Computer Science graduate who enjoys turning ideas into working, real-world solutions. My background includes experience in web development, IT support, and systems administration.
-              </p>
-              <p className="text-slate-600 leading-relaxed mb-10">
-                I care about writing clean, functional code and choosing tools that are simple and genuinely useful. I'm currently open to both freelance projects and full-time opportunities.
-              </p>
-              
-              {/* Updated Button Container: Grid for mobile, Flex for desktop */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-4 lg:justify-start">
-                <a href="https://www.linkedin.com/in/deilariessantos/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap">
-                  <i className="fab fa-linkedin"></i> LINKEDIN
-                </a>
-                <a href="https://github.com/deilariess0" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap">
-                  <i className="fab fa-github"></i> GITHUB
-                </a>
-                <a href="https://drive.google.com/file/d/1ID6rRej1IEJVNs0oATbv4YS9s7nVf9AJ/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap">
-                  <i className="fas fa-file-alt"></i> RESUME
-                </a>
-                <a href="https://linktr.ee/deilaries" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-blue-600/10 text-blue-600 border border-blue-600/30 px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition whitespace-nowrap">
-                  <i className="fas fa-envelope"></i> CONTACT ME
-                </a>
-              </div>
-            </div>
+        <p className="h-sub reveal" style={{ '--d': '.12s' }}>
+          I&apos;m <b>Deil Aries Santos</b> — a full-stack developer. I design, build, and
+          maintain the web systems small companies run their day on: booking platforms,
+          management dashboards, storefronts. My background is{' '}
+          <b>IT support and systems administration</b> — so everything I ship assumes
+          day two exists.
+        </p>
 
-          </div>
+        {/* CTAs — all buttons share the same visual language */}
+        <div className="ctas reveal" style={{ '--d': '.18s' }}>
+          <a className="btn btn-solid" href="#work" onClick={scrollTo('work')}>
+            VIEW SELECTED WORK <ArrowNE />
+          </a>
+          <a
+            className="btn btn-ghost"
+            href="https://drive.google.com/file/d/1ID6rRej1IEJVNs0oATbv4YS9s7nVf9AJ/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <IconFile /> RESUME (PDF)
+          </a>
+          <a
+            className="btn btn-ghost"
+            href="https://www.linkedin.com/in/deilariessantos/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <IconLinkedIn /> LINKEDIN
+          </a>
+          <a
+            className="btn btn-ghost"
+            href="https://github.com/deilariess0"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <IconGithub /> GITHUB
+          </a>
+          <a className="btn btn-ghost" href="#contact" onClick={scrollTo('contact')}>
+            <IconMail /> CONTACT
+          </a>
+        </div>
+      </div>
+
+      {/* RIGHT — portrait frame */}
+      <div
+        className={`ph-frame reveal ${imgOk ? '' : 'ph-fallback'}`}
+        style={{ '--d': '.15s' }}
+      >
+        <img
+          src={myPhoto}
+          alt="Portrait of Deil Aries Santos"
+          onError={() => setImgOk(false)}
+        />
+        <span className="ph-mono" aria-hidden="true">DAS</span>
+
+        <div className="ph-cap">
+          <span>DEIL ARIES SANTOS</span>
+          <em>
+            <i className="dot" />
+            AVAILABLE
+          </em>
         </div>
       </div>
     </section>
