@@ -541,7 +541,7 @@ button { background: none; border: 0; color: inherit; font: inherit; cursor: poi
   width: min(520px, 100%);
   background: #FFFFFF;
   border: 1px solid rgba(10, 10, 10, 0.08);
-  border-radius: 6px;
+  border-radius: 0;
   box-shadow:
     0 24px 64px rgba(0, 0, 0, 0.25),
     0 2px 8px rgba(0, 0, 0, 0.08);

@@ -31,22 +31,27 @@ const About = () => (
       <div className="about-grid">
         <div className="about-copy">
           <p className="lede reveal">
-            I&apos;ve been the person keeping other people&apos;s systems alive.{' '}
-            <span>Now I build the ones worth keeping.</span>
+            I build practical, reliable web applications{' '}
+            <span>designed to solve real-world business problems.</span>
           </p>
           <p className="reveal" style={{ '--d': '.08s' }}>
-            My route into engineering wasn&apos;t the usual one. Before writing software,
-            I worked in <b>IT support and systems administration</b> — patching, backing
-            up, and untangling other people&apos;s infrastructure. It taught me the part
-            most portfolios skip: what software needs to survive real users, real data,
-            and real Mondays.
+            My path into software development started in{' '}
+            <b>IT support and systems administration</b>, where I worked with infrastructure,
+            troubleshooting, backups, system maintenance, and day-to-day technical operations.
+            That experience gave me a strong understanding of what it takes for technology to
+            work reliably — not just in development, but in real-world environments with real
+            users and real business requirements.
           </p>
           <p className="reveal" style={{ '--d': '.15s' }}>
-            Today I build complete web applications end to end — the data model, the API,
-            the admin dashboard, and the interface on top. A gym that replaced its logbook,
-            a cleaning company that takes bookings online, a storefront, a resort&apos;s
-            public face. I care about <b>clean, functional code and tools that are simple
-            and genuinely useful</b>. Currently open to freelance projects and full-time roles.
+            Today I develop full-stack web applications from end to end, working across
+            databases, APIs, business logic, admin dashboards, and responsive user interfaces.
+            My projects include a gym management system, an online cleaning service booking
+            platform, an e-commerce storefront, and a resort and events website.
+          </p>
+          <p className="reveal" style={{ '--d': '.22s' }}>
+            I focus on building <b>clean, maintainable, and functional solutions</b> that are
+            easy to use and aligned with the needs of the business. Currently open to full-time
+            opportunities, freelance projects, and collaborations.
           </p>
         </div>
 
